@@ -51,7 +51,9 @@ class ModerationUtils:
             return False
 
     @staticmethod
-    def kickable(member: discord.Member, moderator: discord.Member, guild: discord.Guild) -> bool:
+    def kickable(
+        member: discord.Member, moderator: discord.Member, guild: discord.Guild
+    ) -> bool:
         """
         Checks if a member can be kicked by the moderator.
 
@@ -77,7 +79,9 @@ class ModerationUtils:
             return False
 
     @staticmethod
-    def bannable(member: discord.Member, moderator: discord.Member, guild: discord.Guild) -> bool:
+    def bannable(
+        member: discord.Member, moderator: discord.Member, guild: discord.Guild
+    ) -> bool:
         """
         Checks if a member can be banned.
 
@@ -103,7 +107,9 @@ class ModerationUtils:
             return False
 
     @staticmethod
-    def mutable(member: discord.Member, moderator: discord.Member, guild: discord.Guild) -> bool:
+    def mutable(
+        member: discord.Member, moderator: discord.Member, guild: discord.Guild
+    ) -> bool:
         """
         Checks if a member can be put in timeout.
 
@@ -129,7 +135,9 @@ class ModerationUtils:
             return False
 
     @staticmethod
-    def manageable(member: discord.Member, moderator: discord.Member, guild: discord.Guild) -> bool:
+    def manageable(
+        member: discord.Member, moderator: discord.Member, guild: discord.Guild
+    ) -> bool:
         """
         Checks if a member is manageable (e.g., nickname changes).
 
@@ -154,9 +162,14 @@ class ModerationUtils:
 
     @staticmethod
     def deletable(
-            channel: Union[discord.TextChannel, discord.VoiceChannel, discord.CategoryChannel, discord.Thread],
-            moderator: discord.Member,
-            guild: discord.Guild,
+        channel: Union[
+            discord.TextChannel,
+            discord.VoiceChannel,
+            discord.CategoryChannel,
+            discord.Thread,
+        ],
+        moderator: discord.Member,
+        guild: discord.Guild,
     ) -> bool:
         """
         Checks if a channel can be deleted.
@@ -186,8 +199,13 @@ class ModerationUtils:
             return False
 
     @staticmethod
-    def editable(channel: Union[discord.TextChannel, discord.VoiceChannel, discord.CategoryChannel],
-                 moderator: discord.Member, guild: discord.Guild) -> bool:
+    def editable(
+        channel: Union[
+            discord.TextChannel, discord.VoiceChannel, discord.CategoryChannel
+        ],
+        moderator: discord.Member,
+        guild: discord.Guild,
+    ) -> bool:
         """
         Checks if a channel is editable (change name, permissions).
 
@@ -208,7 +226,11 @@ class ModerationUtils:
             return False
 
     @staticmethod
-    def message_deletable(message: discord.Message, moderator: discord.Member, guild: discord.Guild) -> bool:
+    def message_deletable(
+        message: discord.Message,
+        moderator: discord.Member,
+        guild: discord.Guild,
+    ) -> bool:
         """
         Checks if a message can be deleted.
 
@@ -237,7 +259,9 @@ class ModerationUtils:
             return False
 
     @staticmethod
-    def role_deletable(role: discord.Role, moderator: discord.Member, guild: discord.Guild) -> bool:
+    def role_deletable(
+        role: discord.Role, moderator: discord.Member, guild: discord.Guild
+    ) -> bool:
         """
         Checks if a role can be deleted.
 
@@ -254,14 +278,20 @@ class ModerationUtils:
                 return False
             if role >= moderator.top_role:
                 return False
-            if role.is_default() or role.is_bot_managed() or role.is_premium_subscriber():
+            if (
+                role.is_default()
+                or role.is_bot_managed()
+                or role.is_premium_subscriber()
+            ):
                 return False
             return True
         except (AttributeError, discord.HTTPException):
             return False
 
     @staticmethod
-    def role_editable(role: discord.Role, moderator: discord.Member, guild: discord.Guild) -> bool:
+    def role_editable(
+        role: discord.Role, moderator: discord.Member, guild: discord.Guild
+    ) -> bool:
         """
         Checks if a role can be edited.
 
@@ -285,7 +315,9 @@ class ModerationUtils:
             return False
 
     @staticmethod
-    def role_assignable(role: discord.Role, moderator: discord.Member, guild: discord.Guild) -> bool:
+    def role_assignable(
+        role: discord.Role, moderator: discord.Member, guild: discord.Guild
+    ) -> bool:
         """
         Checks if a role can be assigned.
 
@@ -302,14 +334,20 @@ class ModerationUtils:
                 return False
             if role >= moderator.top_role:
                 return False
-            if role.is_default() or role.is_bot_managed() or role.is_premium_subscriber():
+            if (
+                role.is_default()
+                or role.is_bot_managed()
+                or role.is_premium_subscriber()
+            ):
                 return False
             return True
         except (AttributeError, discord.HTTPException):
             return False
 
     @staticmethod
-    def emoji_manageable(emoji: discord.Emoji, moderator: discord.Member, guild: discord.Guild) -> bool:
+    def emoji_manageable(
+        emoji: discord.Emoji, moderator: discord.Member, guild: discord.Guild
+    ) -> bool:
         """
         Checks if an emoji is manageable/deletable.
 
@@ -322,12 +360,19 @@ class ModerationUtils:
             bool: True if the emoji can be managed, False otherwise
         """
         try:
-            return moderator.guild_permissions.manage_emojis_and_stickers and emoji.guild_id == guild.id
+            return (
+                moderator.guild_permissions.manage_emojis_and_stickers
+                and emoji.guild_id == guild.id
+            )
         except (AttributeError, discord.HTTPException):
             return False
 
     @staticmethod
-    def sticker_manageable(sticker: discord.GuildSticker, moderator: discord.Member, guild: discord.Guild) -> bool:
+    def sticker_manageable(
+        sticker: discord.GuildSticker,
+        moderator: discord.Member,
+        guild: discord.Guild,
+    ) -> bool:
         """
         Checks if a sticker is manageable.
 
@@ -340,14 +385,20 @@ class ModerationUtils:
             bool: True if the sticker can be managed, False otherwise
         """
         try:
-            return moderator.guild_permissions.manage_emojis_and_stickers and sticker.guild_id == guild.id
+            return (
+                moderator.guild_permissions.manage_emojis_and_stickers
+                and sticker.guild_id == guild.id
+            )
         except (AttributeError, discord.HTTPException):
             return False
 
     @staticmethod
-    def webhook_manageable(webhook: discord.Webhook, moderator: discord.Member,
-                           guild: discord.Guild,
-                           channel: Optional[Union[discord.TextChannel, discord.Thread]] = None) -> bool:
+    def webhook_manageable(
+        webhook: discord.Webhook,
+        moderator: discord.Member,
+        guild: discord.Guild,
+        channel: Optional[Union[discord.TextChannel, discord.Thread]] = None,
+    ) -> bool:
         """
         Checks if a webhook is manageable.
 
@@ -371,7 +422,9 @@ class ModerationUtils:
             return False
 
     @staticmethod
-    def invite_manageable(invite: discord.Invite, moderator: discord.Member, guild: discord.Guild) -> bool:
+    def invite_manageable(
+        invite: discord.Invite, moderator: discord.Member, guild: discord.Guild
+    ) -> bool:
         """
         Checks if an invite can be deleted.
 
@@ -389,15 +442,22 @@ class ModerationUtils:
             if invite.guild and invite.guild.id != guild.id:
                 return False
             if invite.inviter and isinstance(invite.inviter, discord.Member):
-                if invite.inviter.top_role >= moderator.top_role and invite.inviter.id != moderator.id:
+                if (
+                    invite.inviter.top_role >= moderator.top_role
+                    and invite.inviter.id != moderator.id
+                ):
                     return False
             return True
         except (AttributeError, discord.HTTPException):
             return False
 
     @staticmethod
-    def voice_manageable(member: discord.Member, moderator: discord.Member,
-                         guild: discord.Guild, voice_channel: Optional[discord.VoiceChannel] = None) -> bool:
+    def voice_manageable(
+        member: discord.Member,
+        moderator: discord.Member,
+        guild: discord.Guild,
+        voice_channel: Optional[discord.VoiceChannel] = None,
+    ) -> bool:
         """
         Checks if a member can be moved in a voice channel.
 
@@ -427,8 +487,12 @@ class ModerationUtils:
             return False
 
     @staticmethod
-    def voice_mutable(member: discord.Member, moderator: discord.Member,
-                      guild: discord.Guild, voice_channel: Optional[discord.VoiceChannel] = None) -> bool:
+    def voice_mutable(
+        member: discord.Member,
+        moderator: discord.Member,
+        guild: discord.Guild,
+        voice_channel: Optional[discord.VoiceChannel] = None,
+    ) -> bool:
         """
         Checks if a member can be voice muted.
 
@@ -458,8 +522,12 @@ class ModerationUtils:
             return False
 
     @staticmethod
-    def voice_deafenable(member: discord.Member, moderator: discord.Member,
-                         guild: discord.Guild, voice_channel: Optional[discord.VoiceChannel] = None) -> bool:
+    def voice_deafenable(
+        member: discord.Member,
+        moderator: discord.Member,
+        guild: discord.Guild,
+        voice_channel: Optional[discord.VoiceChannel] = None,
+    ) -> bool:
         """
         Checks if a member can be voice deafened.
 
@@ -489,7 +557,9 @@ class ModerationUtils:
             return False
 
     @staticmethod
-    def thread_manageable(thread: discord.Thread, moderator: discord.Member, guild: discord.Guild) -> bool:
+    def thread_manageable(
+        thread: discord.Thread, moderator: discord.Member, guild: discord.Guild
+    ) -> bool:
         """
         Checks if a thread is manageable.
 
@@ -514,7 +584,11 @@ class ModerationUtils:
             return False
 
     @staticmethod
-    def event_manageable(event: discord.ScheduledEvent, moderator: discord.Member, guild: discord.Guild) -> bool:
+    def event_manageable(
+        event: discord.ScheduledEvent,
+        moderator: discord.Member,
+        guild: discord.Guild,
+    ) -> bool:
         """
         Checks if a scheduled event is manageable.
 
@@ -539,7 +613,11 @@ class ModerationUtils:
             return False
 
     @staticmethod
-    def stage_manageable(stage: discord.StageChannel, moderator: discord.Member, guild: discord.Guild) -> bool:
+    def stage_manageable(
+        stage: discord.StageChannel,
+        moderator: discord.Member,
+        guild: discord.Guild,
+    ) -> bool:
         """
         Checks if a stage channel is manageable.
 
@@ -561,7 +639,11 @@ class ModerationUtils:
             return False
 
     @staticmethod
-    def stage_speakable(member: discord.Member, moderator: discord.Member, stage: discord.StageChannel) -> bool:
+    def stage_speakable(
+        member: discord.Member,
+        moderator: discord.Member,
+        stage: discord.StageChannel,
+    ) -> bool:
         """
         Checks if a member can speak in a stage channel.
 
