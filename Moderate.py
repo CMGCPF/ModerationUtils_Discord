@@ -8,7 +8,6 @@ A utility class for Discord moderation permission checks.
 Author: CMGCPF
 Version: 1.0.0
 Created: 05/07/2025
-License: MIT
 Python: 3.8+
 Dependencies: discord.py >= 2.0.0
 
@@ -25,8 +24,6 @@ Usage:
 
 __version__ = "1.0.0"
 __author__ = "CMGCPF"
-__license__ = "MIT"
-__status__ = "Prototype"
 
 import discord
 from typing import Union, Optional
