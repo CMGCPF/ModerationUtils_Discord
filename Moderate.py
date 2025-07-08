@@ -162,14 +162,14 @@ class ModerationUtils:
 
     @staticmethod
     def deletable(
-        channel: Union[
-            discord.TextChannel,
-            discord.VoiceChannel,
-            discord.CategoryChannel,
-            discord.Thread,
-        ],
-        moderator: discord.Member,
-        guild: discord.Guild,
+            channel: Union[
+                discord.TextChannel,
+                discord.VoiceChannel,
+                discord.CategoryChannel,
+                discord.Thread,
+            ],
+            moderator: discord.Member,
+            guild: discord.Guild,
     ) -> bool:
         """
         Checks if a channel can be deleted.
@@ -194,6 +194,15 @@ class ModerationUtils:
                     return False
                 if channel.owner_id == moderator.id:
                     return True
+            if guild.features and any(feature in guild.features for feature in ['COMMUNITY', 'DISCOVERABLE']):
+                if guild.system_channel and channel.id == guild.system_channel.id:
+                    return False
+                if guild.rules_channel and channel.id == guild.rules_channel.id:
+                    return False
+                if guild.public_updates_channel and channel.id == guild.public_updates_channel.id:
+                    return False
+            if guild.system_channel and channel.id == guild.system_channel.id:
+                return False
             return True
         except (AttributeError, discord.HTTPException):
             return False
